@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sunway.webcore.dao.CorePermissionMapper">
+  
+<select id="getPermissionsByUserid"  resultType="com.sunway.webcore.entity.CorePermission" parameterType="String"> 
+		SELECT
+			* 
+		FROM
+			core_permission 
+		WHERE
+			id IN 
+			(SELECT sys_permission_id FROM core_role_permission WHERE sys_role_id IN 
+			(SELECT ROLE_ID FROM core_user_role WHERE USER_ID = #{id}))
+</select>
+ 
+ 	<select id="testSelect" resultType="com.sunway.webcore.entity.CorePermission">
+ 	
+ 		select * from core_permission
+ 	</select>
+</mapper>
